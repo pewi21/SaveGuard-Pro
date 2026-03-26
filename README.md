@@ -124,7 +124,7 @@ SaveGuard Pro does not collect, transmit, or store any data outside your local m
 ## Support
 
 - **Email:** xpewix@gmail.com
-- **Issues & Questions:** [GitHub Issues](https://github.com/pewi21/AutoSavePanel/issues)
+- **Issues & Questions:** [GitHub Issues](https://github.com/pewi21/SaveGuard-Pro/issues)
 
 ---
 
