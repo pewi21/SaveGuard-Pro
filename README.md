@@ -107,8 +107,8 @@ You can define lists of Photoshop history state names that SaveGuard should igno
 ### Full save support (overwrite)
 PSD, PSDT, PDD, PSB, TIF/TIFF, PNG, JPG/JPEG, PDF/PDP
 
-### Formats that flatten layers on save
-BMP, TGA, EPS, AVIF, JXL, PCX, and others — SaveGuard will warn you before saving a multi-layer document in these formats.
+### Formats that need to be flatten before save
+BMP, TGA, EPS, AVIF, JXL, PCX, and others
 
 ### Formats that cannot be auto-saved
 WEBP, RAW, DCM, DDS, KTX/KTX2, MPO — these formats are not supported by the UXP save API.
