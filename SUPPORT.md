@@ -189,7 +189,7 @@ Settings are tied to the document ID, not the filename, so renaming or moving a 
 If you're experiencing an issue not covered here, please reach out:
 
 - **Email:** xpewix@gmail.com
-- **GitHub Issues:** [github.com/pewi21/AutoSavePanel/issues](https://github.com/pewi21/AutoSavePanel/issues)
+- **GitHub Issues:** [github.com/pewi21/AutoSavePanel/issues](https://github.com/pewi21/SaveGuard-Pro/issues)
 
 When reporting a bug, please include:
 - Photoshop version
