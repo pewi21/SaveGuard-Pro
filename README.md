@@ -4,7 +4,7 @@
 
 SaveGuard Pro protects your work by automatically saving and backing up your Photoshop documents based on customizable settings and intelligent activity detection. Never lose progress again.
 
-> Available on [Adobe Exchange](https://exchange.adobe.com/) · Requires Photoshop 23.3.0 or later
+> Requires Photoshop 23.3.0 or later
 
 ---
 
