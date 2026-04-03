@@ -69,7 +69,6 @@ SaveGuard Pro protects your work by automatically saving and backing up your Pho
 
 When Smart Delay is enabled, SaveGuard monitors how long each save actually takes and automatically adjusts the interval so that saving never consumes more than ~25% of the interval. This keeps Photoshop responsive on large files.
 
-- Recalculates every 30 seconds
 - Minimum smart interval: 2 s
 - Maximum smart interval: 20 s (overridden by observed save duration up to 2 min)
 
@@ -87,8 +86,6 @@ When Smart Delay is enabled, SaveGuard monitors how long each save actually take
 | Storage limit (default folder) | 5 GB | — | Oldest backups are deleted when folder exceeds this size |
 | Max copies (custom folder) | 20 | 1 – 20 | — |
 | Storage limit (custom folder) | 8 GB | — | — |
-
-Backup filenames use a Unix timestamp suffix by default (e.g. `MyFile_1711234567.psd`).
 
 ---
 
@@ -111,7 +108,7 @@ PSD, PSDT, PDD, PSB, TIF/TIFF, PNG, JPG/JPEG, PDF/PDP
 BMP, TGA, EPS, AVIF, JXL, PCX, and others
 
 ### Formats that cannot be auto-saved
-WEBP, RAW, DCM, DDS, KTX/KTX2, MPO — these formats are not supported by the UXP save API.
+WEBP, RAW, DCM, DDS, KTX/KTX2, MPO
 
 ---
 
