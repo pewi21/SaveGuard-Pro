@@ -100,10 +100,10 @@ Alternatively, manually increase the "Check every (s)" value.
 
 Even with Smart Delay disabled, SaveGuard monitors how long saves take and shows an in-panel warning when saves consume too much of your configured interval.
 
-| Color | Threshold | Meaning |
-|---|---|---|
-| Orange (warning) | ≥ 40% of interval | Save is taking a significant portion of the cycle time |
-| Red (critical) | ≥ 70% of interval | Save is taking most of the cycle time; Photoshop will feel sluggish |
+| Threshold | Meaning |
+|---|---|
+| ≥ 40% of interval | Save is taking a significant portion of the cycle time |
+| ≥ 70% of interval | Save is taking most of the cycle time; Photoshop will feel sluggish |
 
 **Fix:** Increase the "Check every (s)" value, or enable **Smart Delay** and let SaveGuard manage the interval automatically. You can dismiss the warning individually — it will reset on its own if the ratio improves or if you change the interval.
 
