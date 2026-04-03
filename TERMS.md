@@ -28,4 +28,6 @@ These terms may be updated at any time.
 ## Contact
 
 If you have any questions, please contact:
-[xpewix@gmail.com](mailto:xpewix@gmail.com)
+
+- **Email:** [xpewix@gmail.com](mailto:xpewix@gmail.com)
+- **GitHub Issues:** [github.com/pewi21/SaveGuard-Pro/issues](https://github.com/pewi21/SaveGuard-Pro/issues)
