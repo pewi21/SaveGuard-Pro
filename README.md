@@ -75,7 +75,7 @@ AutoSave is designed for workflows where you need changes in Photoshop to appear
 | Format | Overwrite | Overwrite / PSD / PSB / PNG / JPG | Format used for auto-save |
 | JPG Quality | 10 | 1 – 12 | JPEG compression quality (visible when JPG is selected) |
 | PNG Interlaced | Off | — | Enables interlaced PNG encoding (visible when PNG is selected) |
-| Max. Compatibility | Off | — | Enables PSD/PSB Maximize Compatibility (visible when PSD or PSB is selected) |
+| Max. Compatibility | On | — | Enables PSD/PSB Maximize Compatibility (visible when PSD or PSB is selected) |
 | Custom filename | Off | — | Save to a custom filename instead of overwriting the original |
 | Save folder | Document folder | — | Folder where the auto-saved file is written when using a non-overwrite format |
 
