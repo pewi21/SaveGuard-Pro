@@ -149,7 +149,7 @@ This prevents lag spikes when rapidly cycling through open documents.
 | Format | PSD | PSD / PSB / PNG / JPG | Format used for backup files |
 | JPG Quality | 10 | 1 – 12 | JPEG compression quality (visible when JPG is selected) |
 | PNG Interlaced | Off | — | Enables interlaced PNG encoding (visible when PNG is selected) |
-| Max. Compatibility | Off | — | Enables PSD/PSB Maximize Compatibility (visible when PSD or PSB is selected) |
+| Max. Compatibility | On | — | Enables PSD/PSB Maximize Compatibility (visible when PSD or PSB is selected) |
 | Backup folder | Default | — | Where backup files are stored |
 | Max copies (default folder) | 15 | 1 – 99 | Oldest backups are deleted when limit is exceeded. **Global value — shared across all documents.** |
 | Storage limit (default folder) | 5 GB | 1 – 20 GB | Oldest backups are deleted when folder exceeds this size. **Global value — shared across all documents.** |
