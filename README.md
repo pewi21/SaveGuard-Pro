@@ -94,8 +94,8 @@ When Smart Delay is enabled, SaveGuard monitors how long each save actually take
 
 When Smart Delay is **disabled**, SaveGuard monitors save duration relative to your configured interval and shows an in-panel warning:
 
-- **Warning** (orange): save consumes ≥ 40% of the interval
-- **Critical** (red): save consumes ≥ 70% of the interval
+- **Warning** : save consumes ≥ 40% of the interval
+- **Critical** : save consumes ≥ 70% of the interval
 
 Warnings can be dismissed individually and reset automatically when the ratio improves or the interval is changed.
 
