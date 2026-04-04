@@ -12,7 +12,7 @@ SaveGuard Pro protects your work by automatically saving and backing up your Pho
 
 - **AutoSave** — automatically saves your document when changes are detected, at a configurable check interval
 - **Smart Delay** — dynamically adjusts the check interval based on observed save duration, keeping Photoshop responsive
-- **Cohesion Delay** — waits for you to pause editing before triggering a save, avoiding interruptions mid-stroke
+- **Cohesion Delay** — Waits for a pause in editing activity before triggering a save.
 - **Interval Load Warning** — alerts you when saves are consuming a large fraction of the check interval (when Smart Delay is off)
 - **AutoBackup** — creates timestamped backup copies of your document at a separate interval
 - **Multiple formats** — save and back up as PSD, PSB, PNG, or JPG; AutoSave also supports overwriting the original
