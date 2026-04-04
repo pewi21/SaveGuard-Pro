@@ -156,7 +156,7 @@ This prevents lag spikes when rapidly cycling through open documents.
 | Max copies (custom folder) | 20 | 1 – 99 | — |
 | Storage limit (custom folder) | 8 GB | 1 – 20 GB | — |
 | Custom filename | Off | — | Save backups under a fixed filename (available when a custom folder is selected) |
-| All AutoBackup documents | Off | — | When enabled, storage limits apply across all documents backed up to the same custom folder |
+| All AutoBackup documents | Off | — | When enabled, both the **Max copies** and **Storage limit** apply across **all** documents backed up to the same custom folder, not just the current document. Oldest files from any document are deleted when either limit is exceeded |
 
 > **Max copies** and **Storage limit** for the **default folder** are global settings — they apply to all open documents simultaneously. Changing the value in one document's panel immediately updates all other documents as well. The values are stored in a single shared settings file and persist across Photoshop sessions.
 >
