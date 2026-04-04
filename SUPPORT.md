@@ -4,19 +4,20 @@
 
 1. [The plugin panel is not showing](#the-plugin-panel-is-not-showing)
 2. [AutoSave is not saving](#autosave-is-not-saving)
-3. [AutoSave stopped with a critical error](#autosave-stopped-with-a-critical-error)
-4. [AutoSave is slowing down Photoshop](#autosave-is-slowing-down-photoshop)
-5. [AutoSave shows an interval load warning](#autosave-shows-an-interval-load-warning)
-6. [AutoSave asks me to select a folder](#autosave-asks-me-to-select-a-folder)
-7. [AutoBackup is not creating backups](#autobackup-is-not-creating-backups)
-8. [Backup folder says "unavailable"](#backup-folder-says-unavailable)
-9. [File was saved in the wrong format](#file-was-saved-in-the-wrong-format)
-10. [My document has too many layers error](#my-document-has-too-many-layers-error)
-11. [PSD file exceeds 2 GB](#psd-file-exceeds-2-gb)
-12. [Ignored Operations list not found](#ignored-operations-list-not-found)
-13. [Settings are not remembered between sessions](#settings-are-not-remembered-between-sessions)
-14. [Error messages reference](#error-messages-reference)
-15. [Contact support](#contact-support)
+3. [AutoSave does not save immediately after switching documents](#autosave-does-not-save-immediately-after-switching-documents)
+4. [AutoSave stopped with a critical error](#autosave-stopped-with-a-critical-error)
+5. [AutoSave is slowing down Photoshop](#autosave-is-slowing-down-photoshop)
+6. [AutoSave shows an interval load warning](#autosave-shows-an-interval-load-warning)
+7. [AutoSave asks me to select a folder](#autosave-asks-me-to-select-a-folder)
+8. [AutoBackup is not creating backups](#autobackup-is-not-creating-backups)
+9. [Backup folder says "unavailable"](#backup-folder-says-unavailable)
+10. [File was saved in the wrong format](#file-was-saved-in-the-wrong-format)
+11. [My document has too many layers error](#my-document-has-too-many-layers-error)
+12. [PSD file exceeds 2 GB](#psd-file-exceeds-2-gb)
+13. [Ignored Operations list not found](#ignored-operations-list-not-found)
+14. [Settings are not remembered between sessions](#settings-are-not-remembered-between-sessions)
+15. [Error messages reference](#error-messages-reference)
+16. [Contact support](#contact-support)
 
 ---
 
@@ -51,13 +52,34 @@ The **PAUSED** state appears when SaveGuard is waiting for your input — either
 
 **Fix:** Confirm the overwrite, select the requested folder, or press **✕** to cancel.
 
+### AutoSave turned itself off after I changed the format
+
+This is intentional. When you change the Format setting, AutoSave stops and resets to OFF. Each format can require a different save destination, a different change-detection method, and its own overwrite confirmation. Allowing the save loop to continue mid-change could write to a stale or wrong path. Re-enable AutoSave after selecting the format — the plugin will prompt for any required folder or confirmation before it resumes.
+
 ### The document has no unsaved changes
-SaveGuard only saves when there are actual unsaved changes. If nothing has changed since the last save, no save is performed.
+SaveGuard only saves when there are actual unsaved changes.
+
+**In Overwrite mode** (Format = Overwrite, single-layer PNG/JPG excluded), SaveGuard checks Photoshop's native unsaved-changes flag. If Photoshop reports the document is saved, no save is performed. The Ignored Operations list is not used in this mode.
+
+**In history-tracking mode** (any explicit format such as PSD/PSB/PNG/JPG, or Overwrite on a multi-layer PNG/JPG), SaveGuard scans Photoshop history states to detect new changes. If all recent operations are in the Ignored Operations list, the document is considered unchanged. Try removing items from the list or switching to **(No list)** to confirm this is the cause.
 
 ### AutoSave interval is very long
 The default check interval is 2 seconds, but if you changed it to a high value, saves will be infrequent.
 
 **Fix:** Lower the "Check every (s)" value in AutoSave settings.
+
+---
+
+## AutoSave does not save immediately after switching documents
+
+**Symptoms:** After switching to another open document in Photoshop, AutoSave (or AutoBackup) does not trigger for a few seconds even though changes are present.
+
+This is intentional. SaveGuard suppresses saves briefly after a document switch to prevent an immediate save on the newly activated document — switching between many documents rapidly would otherwise cause a save burst that lags Photoshop.
+
+- **AutoSave** is suppressed for **5 seconds** after a document switch
+- **AutoBackup** is suppressed for **3 seconds** after a document switch
+
+After the delay expires, normal save/backup behavior resumes. No action is needed.
 
 ---
 
@@ -82,11 +104,17 @@ After fixing the underlying problem, click the AutoSave button to re-enable it.
 
 ## AutoSave is slowing down Photoshop
 
-If saving a large document takes several seconds, running AutoSave on a short interval can cause Photoshop to feel sluggish.
+AutoSave is designed primarily for lightweight, frequently-saved documents in workflows where changes need to appear in another application as quickly as possible (e.g. a texture live-reloaded by a 3D viewport or a file watched by a web browser). For large or complex documents — high resolution, many Smart Objects, many layers — saves can take several seconds, and a short check interval will noticeably impact editing comfort.
+
+If you are using AutoSave mainly for data protection rather than live-preview, consider switching to **AutoBackup**, which is designed for larger files and longer intervals and does not affect your editing rhythm.
+
+If you want to keep using AutoSave on a large document, the recommendations below apply.
 
 **Recommended fix: Enable Smart Delay**
 
-Smart Delay is enabled by default. It monitors actual save duration and automatically increases the interval so that saving does not consume more than ~25% of the cycle time. For example, if a save takes 4 seconds, the interval is raised so Photoshop has plenty of time between saves.
+Smart Delay is enabled by default. Its primary role is to enforce a minimum safe interval floor: it raises the interval when saves are taking too long, ensuring that saving stays below ~25% of the cycle time. It never lowers the interval below what you have manually set — you can always increase the interval further yourself if needed.
+
+For example, if a save takes 4 seconds, Smart Delay raises the interval so Photoshop has plenty of time between saves. If you then manually set a higher interval, Smart Delay will respect that and not override it downward.
 
 If you disabled Smart Delay:
 1. Open AutoSave settings
@@ -134,6 +162,14 @@ AutoBackup has a minimum effective interval of 5 minutes, regardless of what val
 ### The document hasn't changed since the last backup
 AutoBackup uses Cohesion Delay to wait for editing activity. If no edits were detected, no backup is created.
 
+### AutoBackup never triggers during long continuous editing sessions
+If you edit continuously without any pause, the **Wait after edit** delay keeps resetting and a backup never fires. SaveGuard has a built-in safety limit for this: if the Wait-after-edit debounce has been active for **60 seconds** without a backup being created, the remaining delay is bypassed and a backup is triggered immediately. This ensures at least one backup per 60-second continuous editing window regardless of how long you keep editing without stopping.
+
+### Storage limits appear to change by themselves
+The **Max copies** and **Storage limit** values for the **default folder** are global — they apply to all open documents at once. Changing the value in any one document's panel immediately updates all other open documents. If you open a second document after already setting a limit, it inherits the current global value. This is intentional: all documents share the same default backup folder, so the limits must be consistent across them.
+
+The limits for a **custom folder** are per-document and do not affect other documents. If you enable **All AutoBackup documents** for a custom folder, both the Max copies and Storage limit are then enforced across all documents that back up to that same folder — oldest files from any document are removed when either limit is exceeded.
+
 ---
 
 ## Backup folder says "unavailable"
@@ -153,8 +189,9 @@ This means the previously selected backup folder no longer exists or is not acce
 If AutoSave format is set to **Overwrite**, SaveGuard saves in the document's original format. If you want a specific format, change it in settings.
 
 **Note:** Some formats are not compatible with auto-save:
-- **WEBP, RAW, DDS, DCM** and others cannot be saved automatically due to Photoshop API limitations
-- Multi-layer documents cannot be saved as **BMP, TGA, EPS**, and similar single-layer formats — SaveGuard will warn you and stop
+- **WEBP, RAW, DDS, DCM/DC3/DIC, KTX/KTX2, MPO** cannot be saved automatically — Photoshop would open an interactive dialog for these formats
+- **BMP, TGA, EPS, AVIF, JXL, PCX, and similar formats** do not support layers — SaveGuard will warn you and stop if the document has more than one layer; flatten the document manually first
+- **Multi-layer PNG or JPG documents** with Format set to **Overwrite** are handled automatically via Save As (with flattening) to the same folder — no format change is needed
 - **GIF files** with multiple layers cannot be overwritten unless the document is in Indexed Color mode — SaveGuard will warn you and stop
 
 **Fix:** Change the AutoSave format to **PSD** or **PNG** in settings.
@@ -182,6 +219,8 @@ PSD is limited to 2 GB. Large documents with many layers or high resolution can 
 ---
 
 ## Ignored Operations list not found
+
+**Note:** The Ignored Operations section in the panel is only visible when the current document and format require history-tracking mode. If you do not see it, AutoSave is using direct save mode (Format = Overwrite on a format that does not require Save As) and the list has no effect — this is normal.
 
 **Error:** `List "name" doesn't exist on disk. Set to default list.`
 
