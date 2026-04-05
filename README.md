@@ -16,7 +16,7 @@ SaveGuard Pro protects your work by automatically saving and backing up your Pho
 - **Interval Load Warning** — alerts you when saves are consuming a large fraction of the check interval (when Smart Delay is off)
 - **AutoBackup** — creates timestamped backup copies of your document at a separate interval
 - **Multiple formats** — save and back up as PSD, PSB, PNG, or JPG; AutoSave also supports overwriting the original
-- **Format options** — per-format settings: JPG quality (1–12), PNG interlacing, PSD/PSB Maximize Compatibility
+- **Format options** — per-format settings: JPG quality (1–12), PNG interlacing, PSD Maximize Compatibility
 - **Custom filenames** — optionally save to a custom filename instead of overwriting the original
 - **Custom save folder** — optionally direct AutoSave output to a folder other than the document's original location
 - **Ignored Operations** — define named lists of Photoshop history state names that suppress saves or backups
