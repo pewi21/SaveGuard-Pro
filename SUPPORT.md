@@ -4,20 +4,21 @@
 
 1. [The plugin panel is not showing](#the-plugin-panel-is-not-showing)
 2. [AutoSave is not saving](#autosave-is-not-saving)
-3. [AutoSave does not save immediately after switching documents](#autosave-does-not-save-immediately-after-switching-documents)
-4. [AutoSave stopped with a critical error](#autosave-stopped-with-a-critical-error)
-5. [AutoSave is slowing down Photoshop](#autosave-is-slowing-down-photoshop)
-6. [AutoSave shows an interval load warning](#autosave-shows-an-interval-load-warning)
-7. [AutoSave asks me to select a folder](#autosave-asks-me-to-select-a-folder)
-8. [AutoBackup is not creating backups](#autobackup-is-not-creating-backups)
-9. [Backup folder says "unavailable"](#backup-folder-says-unavailable)
-10. [File was saved in the wrong format](#file-was-saved-in-the-wrong-format)
-11. [My document has too many layers error](#my-document-has-too-many-layers-error)
-12. [PSD file exceeds 2 GB](#psd-file-exceeds-2-gb)
-13. [Ignored Operations list not found](#ignored-operations-list-not-found)
-14. [Settings are not remembered between sessions](#settings-are-not-remembered-between-sessions)
-15. [Error messages reference](#error-messages-reference)
-16. [Contact support](#contact-support)
+3. ["Save Now" button does nothing](#save-now-button-does-nothing)
+4. [AutoSave does not save immediately after switching documents](#autosave-does-not-save-immediately-after-switching-documents)
+5. [AutoSave stopped with a critical error](#autosave-stopped-with-a-critical-error)
+6. [AutoSave is slowing down Photoshop](#autosave-is-slowing-down-photoshop)
+7. [AutoSave shows an interval load warning](#autosave-shows-an-interval-load-warning)
+8. [AutoSave asks me to select a folder](#autosave-asks-me-to-select-a-folder)
+9. [AutoBackup is not creating backups](#autobackup-is-not-creating-backups)
+10. [Backup folder says "unavailable"](#backup-folder-says-unavailable)
+11. [File was saved in the wrong format](#file-was-saved-in-the-wrong-format)
+12. [My document has too many layers error](#my-document-has-too-many-layers-error)
+13. [PSD file exceeds 2 GB](#psd-file-exceeds-2-gb)
+14. [Ignored Operations list not found](#ignored-operations-list-not-found)
+15. [Settings are not remembered between sessions](#settings-are-not-remembered-between-sessions)
+16. [Error messages reference](#error-messages-reference)
+17. [Contact support](#contact-support)
 
 ---
 
@@ -67,6 +68,18 @@ SaveGuard only saves when there are actual unsaved changes.
 The default check interval is 2 seconds, but if you changed it to a high value, saves will be infrequent.
 
 **Fix:** Lower the "Check every (s)" value in AutoSave settings.
+
+---
+
+## "Save Now" button does nothing
+
+**Symptom:** You click **Save Now** but nothing happens and no save is performed.
+
+This is expected behavior when AutoSave is in **direct save mode** (Format = Overwrite on a format that supports direct overwriting, with a single-layer document). In this mode SaveGuard respects Photoshop's native unsaved-changes flag — if the document has no pending unsaved changes, there is nothing to write and the button does nothing.
+
+**In history-tracking mode** (any explicit format such as PSD/PSB/PNG/JPG, or Overwrite on a multi-layer PNG/JPG), the button forces a save unconditionally, bypassing all debounce and history guards.
+
+**Fix:** Make a change in the document first, then click Save Now. Or switch to a non-overwrite format (e.g. PSD) to use history-tracking mode, where Save Now always forces a save.
 
 ---
 
