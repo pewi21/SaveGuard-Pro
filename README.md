@@ -15,6 +15,9 @@ SaveGuard Pro protects your work by automatically saving and backing up your Pho
 - **Cohesion Delay** — Waits for a pause in editing activity before triggering a save.
 - **Interval Load Warning** — alerts you when saves are consuming a large fraction of the check interval (when Smart Delay is off)
 - **AutoBackup** — creates timestamped backup copies of your document at a separate interval
+- **Countdown timers** — live per-document countdowns showing time remaining until the next save and next backup; click to hide
+- **Save Now / Save Backup Now** — one-click buttons to force an immediate save or backup, bypassing all delays
+- **Browse Backup Files** — open a file picker in the backup folder and open selected files directly in Photoshop
 - **Multiple formats** — save and back up as PSD, PSB, PNG, or JPG; AutoSave also supports overwriting the original
 - **Format options** — per-format settings: JPG quality (1–12), PNG interlacing, PSD Maximize Compatibility
 - **Custom filenames** — optionally save to a custom filename instead of overwriting the original
@@ -72,6 +75,7 @@ AutoSave is designed for workflows where you need changes in Photoshop to appear
 | Check every (s) | 2 s | 2 s – 3600 s | How often SaveGuard checks for unsaved changes |
 | Smart Delay | On | — | Automatically adjusts the interval so saves stay near 25% of the interval duration |
 | Wait after edit (s) | 2 s | 1 s – 300 s | How long to wait after the last edit before saving |
+| Save Now | — | — | Triggers an immediate save, bypassing all delays and debounce |
 | Format | Overwrite | Overwrite / PSD / PSB / PNG / JPG | Format used for auto-save |
 | JPG Quality | 10 | 1 – 12 | JPEG compression quality (visible when JPG is selected) |
 | PNG Interlaced | Off | — | Enables interlaced PNG encoding (visible when PNG is selected) |
@@ -146,6 +150,8 @@ This prevents lag spikes when rapidly cycling through open documents.
 |---|---|---|---|
 | Save every (min) | 15 min | 5 min – 120 min | How often a new backup copy is created |
 | Wait after edit (s) | 2 s | 1 s – 300 s | Waits for editing to pause before creating a backup. If editing is continuous for 60 seconds without any pause, the backup is triggered immediately regardless of this setting |
+| Save Backup Now | — | — | Triggers an immediate backup, bypassing all delays and debounce |
+| Browse Backup Files | — | — | Opens a file picker in the backup folder; selected files open directly in Photoshop |
 | Format | PSD | PSD / PSB / PNG / JPG | Format used for backup files |
 | JPG Quality | 10 | 1 – 12 | JPEG compression quality (visible when JPG is selected) |
 | PNG Interlaced | Off | — | Enables interlaced PNG encoding (visible when PNG is selected) |
