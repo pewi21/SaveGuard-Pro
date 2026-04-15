@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>SaveGuard Pro – Photoshop Auto-Save & Backup Plugin (UXP)</title>
+<meta name="description" content="SaveGuard Pro – smart auto-save and backup plugin for Adobe Photoshop. Prevent data loss with automatic saves, backups, and intelligent activity detection.">
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #0f172a;
+    color: #e2e8f0;
+    line-height: 1.6;
+}
+.container {
+    max-width: 1000px;
+    margin: auto;
+    padding: 40px 20px;
+}
+h1 { font-size: 2.5rem; }
+h2 { margin-top: 40px; color: #38bdf8; }
+h3 { margin-top: 25px; }
+.box {
+    background: #1e293b;
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 20px;
+}
+a { color: #38bdf8; }
+ul { padding-left: 20px; }
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+td, th {
+    border: 1px solid #334155;
+    padding: 10px;
+}
+footer {
+    margin-top: 60px;
+    opacity: 0.6;
+}
+</style>
+</head>
+
+<body>
+<div class="container">
+
+<h1>SaveGuard Pro</h1>
+<p><strong>Smart auto-save and backup plugin for Adobe Photoshop</strong></p>
+
+<p>
+SaveGuard Pro protects your work by automatically saving and backing up your Photoshop documents
+based on customizable settings and intelligent activity detection. Never lose progress again.
+</p>
+
+<p><strong>Requires Photoshop 23.3.0 or later</strong></p>
+
+<hr>
+
+<h2>🎬 Demo</h2>
+<a href="https://youtu.be/FgGDWKA0aYg">
+    <img src="https://img.youtube.com/vi/FgGDWKA0aYg/maxresdefault.jpg" style="width:100%; border-radius:10px;">
+</a>
+
+<hr>
+
+<h2>⚡ Features</h2>
+<ul>
+<li>AutoSave – automatic save based on detected changes</li>
+<li>Smart Delay – dynamic interval adjustment</li>
+<li>Cohesion Delay – waits for pause in editing</li>
+<li>Interval Load Warning</li>
+<li>AutoBackup – timestamped backup copies</li>
+<li>Countdown timers per document</li>
+<li>Save Now / Save Backup Now</li>
+<li>Browse Backup Files</li>
+<li>Multiple formats: PSD, PSB, PNG, JPG</li>
+<li>Custom filenames and folders</li>
+<li>Ignored Operations system</li>
+<li>Per-document settings</li>
+<li>Retry logic (up to 3 retries)</li>
+<li>Crash-safe storage (.tmp / .bak)</li>
+<li>Storage limits (auto cleanup)</li>
+<li>11 languages support</li>
+</ul>
+
+<hr>
+
+<h2>📋 Requirements</h2>
+<table>
+<tr><th>Application</th><td>Adobe Photoshop</td></tr>
+<tr><th>Minimum version</th><td>23.3.0</td></tr>
+<tr><th>Platform</th><td>Windows, macOS</td></tr>
+</table>
+
+<hr>
+
+<h2>🛠 Installation</h2>
+<ol>
+<li>Open Adobe Photoshop</li>
+<li>Go to Plugins → Browse Plugins (or Adobe Exchange)</li>
+<li>Search for <strong>SaveGuard Pro</strong></li>
+<li>Click Get and install</li>
+<li>Open via Plugins → SaveGuard Pro</li>
+</ol>
+
+<hr>
+
+<h2>🚀 Quick Start</h2>
+<ol>
+<li>Open a saved document</li>
+<li>Set check interval</li>
+<li>Enable AutoSave</li>
+<li>Optionally enable AutoBackup</li>
+</ol>
+
+<p><strong>Note:</strong> Document must be saved at least once.</p>
+
+<hr>
+
+<h2>🧠 AutoSave</h2>
+
+<h3>Primary use case</h3>
+<p>
+Designed for workflows where changes must propagate instantly to other tools
+(e.g. 3D viewport, browser live reload).
+</p>
+
+<div class="box">
+<strong>Important:</strong> Not recommended for large documents without Smart Delay.
+</div>
+
+<h3>Key Settings</h3>
+<table>
+<tr><th>Setting</th><th>Description</th></tr>
+<tr><td>Check interval</td><td>How often changes are checked</td></tr>
+<tr><td>Smart Delay</td><td>Keeps save time ~25% of interval</td></tr>
+<tr><td>Wait after edit</td><td>Delay after last action</td></tr>
+<tr><td>Format</td><td>Overwrite / PSD / PSB / PNG / JPG</td></tr>
+</table>
+
+<h3>Smart Delay</h3>
+<p>
+Automatically increases interval when saves are slow.
+Never lowers below user-defined value.
+</p>
+
+<h3>Interval Load Warning</h3>
+<ul>
+<li>Warning ≥ 40%</li>
+<li>Critical ≥ 70%</li>
+</ul>
+
+<h3>Change Detection Modes</h3>
+<ul>
+<li><strong>Direct mode:</strong> uses Photoshop saved flag</li>
+<li><strong>History mode:</strong> tracks history states</li>
+</ul>
+
+<hr>
+
+<h2>💾 AutoBackup</h2>
+<table>
+<tr><th>Setting</th><th>Description</th></tr>
+<tr><td>Interval</td><td>How often backups are created</td></tr>
+<tr><td>Wait after edit</td><td>Delay before backup</td></tr>
+<tr><td>Format</td><td>PSD / PSB / PNG / JPG</td></tr>
+<tr><td>Storage limits</td><td>Auto-delete old backups</td></tr>
+</table>
+
+<p>
+Backup limits can be global (default folder) or per-document (custom folder).
+</p>
+
+<hr>
+
+<h2>🚫 Ignored Operations</h2>
+<p>
+Define Photoshop history states that should not trigger saves.
+Useful for actions that don't change document content.
+</p>
+
+<ul>
+<li>Multiple named lists</li>
+<li>Separate lists for AutoSave and AutoBackup</li>
+<li>Stored as JSON</li>
+</ul>
+
+<hr>
+
+<h2>📁 Supported Formats</h2>
+
+<h3>Full overwrite</h3>
+<p>PSD, PSB, TIFF, PDF</p>
+
+<h3>Single-layer only</h3>
+<p>PNG, JPG</p>
+
+<h3>Requires flattening</h3>
+<p>BMP, TGA, EPS, AVIF, JXL, PCX</p>
+
+<h3>Not supported</h3>
+<p>WEBP, RAW, DDS, KTX, MPO</p>
+
+<hr>
+
+<h2>🔒 Privacy</h2>
+<p>
+All data stays local. No external transmission.
+Settings stored in pluginSettings.json.
+</p>
+
+<hr>
+
+<h2>📬 Support</h2>
+<p>Email: xpewix@gmail.com</p>
+<p><a href="https://github.com/pewi21/SaveGuard-Pro/issues">GitHub Issues</a></p>
+
+<hr>
+
+<h2>📄 License</h2>
+<p>© Paweł Prygiel. All rights reserved.</p>
+
+<footer>
+<p>SaveGuard Pro – Photoshop AutoSave Plugin</p>
+</footer>
+
+</div>
+</body>
+</html>
