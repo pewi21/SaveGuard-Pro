@@ -8,6 +8,12 @@ SaveGuard Pro protects your work by automatically saving and backing up your Pho
 
 ---
 
+## Demo
+
+[![SaveGuard Pro – Demo](https://img.youtube.com/vi/FgGDWKA0aYg/maxresdefault.jpg)](https://youtu.be/FgGDWKA0aYg)
+
+---
+
 ## Features
 
 - **AutoSave** — automatically saves your document when changes are detected, at a configurable check interval
