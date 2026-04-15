@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>SaveGuard Pro – Photoshop Auto-Save & Backup Plugin</title>
+
+<meta name="description" content="SaveGuard Pro is a smart auto-save and backup plugin for Adobe Photoshop. Prevent data loss with automatic saving, backups, and intelligent activity detection.">
+
+<style>
+body {
+    margin:0;
+    font-family: Arial, sans-serif;
+    background:#0b1220;
+    color:#e5e7eb;
+    line-height:1.6;
+}
+.container {
+    max-width: 1000px;
+    margin:auto;
+    padding: 60px 20px;
+}
+h1 {
+    font-size: 3rem;
+    margin-bottom: 10px;
+}
+.highlight {
+    color:#38bdf8;
+}
+.btn {
+    display:inline-block;
+    padding:14px 22px;
+    margin-top:20px;
+    margin-right:10px;
+    background:#38bdf8;
+    color:black;
+    font-weight:bold;
+    text-decoration:none;
+    border-radius:10px;
+}
+.btn.secondary {
+    background:#1f2937;
+    color:#fff;
+}
+.section {
+    margin-top:60px;
+}
+.card {
+    background:#111827;
+    padding:20px;
+    border-radius:12px;
+    margin-top:15px;
+}
+ul {
+    padding-left:20px;
+}
+.grid {
+    display:grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap:15px;
+}
+.badge {
+    display:inline-block;
+    background:#1f2937;
+    padding:6px 10px;
+    border-radius:8px;
+    margin:4px;
+    font-size:0.9rem;
+}
+footer {
+    margin-top:80px;
+    opacity:0.6;
+    font-size:0.9rem;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<!-- HERO -->
+<h1>SaveGuard <span class="highlight">Pro</span></h1>
+
+<p style="font-size:1.3rem;">
+Smart auto-save and backup plugin for Adobe Photoshop.
+</p>
+
+<p>
+Never lose your work again. SaveGuard Pro automatically saves and backs up your Photoshop documents
+based on intelligent activity detection and customizable rules.
+</p>
+
+<a class="btn" href="https://github.com/pewi21/SaveGuard-Pro">View on GitHub</a>
+<a class="btn secondary" href="#features">Explore Features</a>
+
+<!-- PROBLEM -->
+<div class="section">
+<h2>🚨 Stop losing Photoshop work</h2>
+<div class="card">
+Photoshop crashes, freezes or unexpected shutdowns can destroy hours of work.
+SaveGuard Pro protects you with automatic background backups and smart auto-save logic.
+</div>
+</div>
+
+<!-- FEATURES -->
+<div class="section" id="features">
+<h2>⚡ Key Features</h2>
+
+<div class="grid">
+
+<div class="card">
+<h3>AutoSave</h3>
+Automatically saves your document when changes are detected.
+</div>
+
+<div class="card">
+<h3>AutoBackup</h3>
+Creates timestamped backup copies at a separate interval.
+</div>
+
+<div class="card">
+<h3>Smart Delay</h3>
+Adjusts save behavior dynamically based on performance.
+</div>
+
+<div class="card">
+<h3>Cohesion Delay</h3>
+Waits for editing activity to pause before saving.
+</div>
+
+<div class="card">
+<h3>Multi-format support</h3>
+PSD, PSB, PNG, JPG workflows supported.
+</div>
+
+<div class="card">
+<h3>Crash-safe system</h3>
+Protects settings using atomic storage (.tmp / .bak).
+</div>
+
+</div>
+</div>
+
+<!-- WHY -->
+<div class="section">
+<h2>🧠 Why it matters</h2>
+<div class="card">
+SaveGuard Pro is built for real workflows where saving manually is not enough.
+It reduces risk of data loss without interrupting your creative process.
+</div>
+</div>
+
+<!-- USE CASES -->
+<div class="section">
+<h2>💡 Use cases</h2>
+<div class="card">
+<ul>
+<li>Long Photoshop editing sessions</li>
+<li>Large PSD / PSB files</li>
+<li>Texture / game asset workflows</li>
+<li>Design work with frequent crashes risk</li>
+</ul>
+</div>
+</div>
+
+<!-- TECH TAGS -->
+<div class="section">
+<h2>🔖 Keywords</h2>
+<span class="badge">photoshop autosave</span>
+<span class="badge">photoshop backup plugin</span>
+<span class="badge">uxp plugin</span>
+<span class="badge">adobe photoshop plugin</span>
+<span class="badge">automatic backup photoshop</span>
+</div>
+
+<!-- CTA -->
+<div class="section">
+<h2>🚀 Get started</h2>
+<div class="card">
+Install SaveGuard Pro via GitHub or Adobe Exchange and start protecting your work immediately.
+</div>
+
+<a class="btn" href="https://github.com/pewi21/SaveGuard-Pro">Download / GitHub</a>
+</div>
+
+<footer>
+SaveGuard Pro – Photoshop Auto Backup Plugin
+</footer>
+
+</div>
+
+</body>
+</html>
