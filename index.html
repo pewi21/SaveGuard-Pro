@@ -1,730 +1,179 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SaveGuard Pro — Auto-Save Plugin for Adobe Photoshop</title>
-  <meta name="description" content="SaveGuard Pro is a smart auto-save and backup plugin for Adobe Photoshop. Never lose your work again. 30-day free trial, available on Adobe Exchange." />
-  <meta name="keywords" content="Photoshop auto-save plugin, Photoshop backup plugin, Adobe Photoshop plugin, autosave Photoshop, SaveGuard Pro" />
-  <meta property="og:title" content="SaveGuard Pro — Auto-Save Plugin for Adobe Photoshop" />
-  <meta property="og:description" content="Smart auto-save and backup plugin for Adobe Photoshop. Never lose your work again." />
-  <meta property="og:url" content="https://pewi21.github.io/SaveGuard-Pro/" />
-  <meta property="og:type" content="website" />
-  <link rel="canonical" href="https://pewi21.github.io/SaveGuard-Pro/" />
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
-  <style>
-    :root {
-      --bg: #0a0a0c;
-      --bg2: #111116;
-      --bg3: #18181f;
-      --border: rgba(255,255,255,0.07);
-      --accent: #00e87a;
-      --accent2: #00b35d;
-      --text: #e8e8f0;
-      --muted: #7a7a8c;
-      --card: #13131a;
-    }
-
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    html { scroll-behavior: smooth; }
-
-    body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: 'DM Sans', sans-serif;
-      font-weight: 300;
-      line-height: 1.65;
-      overflow-x: hidden;
-    }
-
-    /* NOISE OVERLAY */
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
-      pointer-events: none;
-      z-index: 9999;
-      opacity: 0.4;
-    }
-
-    /* NAV */
-    nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 100;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 48px;
-      height: 64px;
-      background: rgba(10,10,12,0.85);
-      backdrop-filter: blur(16px);
-      border-bottom: 1px solid var(--border);
-    }
-
-    .nav-logo {
-      font-family: 'Syne', sans-serif;
-      font-weight: 800;
-      font-size: 1.1rem;
-      letter-spacing: -0.01em;
-      color: var(--text);
-      text-decoration: none;
-    }
-
-    .nav-logo span { color: var(--accent); }
-
-    .nav-links {
-      display: flex;
-      gap: 32px;
-      list-style: none;
-    }
-
-    .nav-links a {
-      color: var(--muted);
-      text-decoration: none;
-      font-size: 0.875rem;
-      transition: color 0.2s;
-    }
-
-    .nav-links a:hover { color: var(--text); }
-
-    .nav-cta {
-      background: var(--accent);
-      color: #000 !important;
-      font-weight: 500;
-      padding: 8px 20px;
-      border-radius: 6px;
-      transition: background 0.2s !important;
-    }
-
-    .nav-cta:hover { background: var(--accent2) !important; color: #000 !important; }
-
-    /* HERO */
-    .hero {
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
-      text-align: center;
-      padding: 120px 24px 80px;
-      position: relative;
-    }
-
-    .hero-glow {
-      position: absolute;
-      top: 20%;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 600px;
-      height: 400px;
-      background: radial-gradient(ellipse, rgba(0,232,122,0.12) 0%, transparent 70%);
-      pointer-events: none;
-    }
-
-    .badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: rgba(0,232,122,0.08);
-      border: 1px solid rgba(0,232,122,0.2);
-      color: var(--accent);
-      font-size: 0.8rem;
-      font-weight: 500;
-      padding: 6px 14px;
-      border-radius: 100px;
-      margin-bottom: 28px;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-      animation: fadeUp 0.6s ease both;
-    }
-
-    .badge::before {
-      content: '';
-      width: 7px; height: 7px;
-      background: var(--accent);
-      border-radius: 50%;
-      box-shadow: 0 0 8px var(--accent);
-      animation: pulse 2s infinite;
-    }
-
-    @keyframes pulse {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.4; }
-    }
-
-    .hero h1 {
-      font-family: 'Syne', sans-serif;
-      font-weight: 800;
-      font-size: clamp(2.8rem, 7vw, 5.5rem);
-      line-height: 1.05;
-      letter-spacing: -0.03em;
-      max-width: 800px;
-      margin-bottom: 24px;
-      animation: fadeUp 0.6s ease 0.1s both;
-    }
-
-    .hero h1 em {
-      font-style: normal;
-      color: var(--accent);
-    }
-
-    .hero p {
-      font-size: clamp(1rem, 2vw, 1.2rem);
-      color: var(--muted);
-      max-width: 520px;
-      margin-bottom: 40px;
-      animation: fadeUp 0.6s ease 0.2s both;
-    }
-
-    .hero-actions {
-      display: flex;
-      gap: 16px;
-      flex-wrap: wrap;
-      justify-content: center;
-      animation: fadeUp 0.6s ease 0.3s both;
-    }
-
-    .btn-primary {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: var(--accent);
-      color: #000;
-      font-weight: 600;
-      font-size: 0.95rem;
-      padding: 14px 28px;
-      border-radius: 8px;
-      text-decoration: none;
-      transition: background 0.2s, transform 0.15s;
-    }
-
-    .btn-primary:hover { background: var(--accent2); transform: translateY(-1px); }
-
-    .btn-ghost {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: transparent;
-      color: var(--text);
-      font-weight: 500;
-      font-size: 0.95rem;
-      padding: 14px 28px;
-      border-radius: 8px;
-      text-decoration: none;
-      border: 1px solid var(--border);
-      transition: border-color 0.2s, transform 0.15s;
-    }
-
-    .btn-ghost:hover { border-color: rgba(255,255,255,0.2); transform: translateY(-1px); }
-
-    .trial-note {
-      font-size: 0.8rem;
-      color: var(--muted);
-      margin-top: 16px;
-      animation: fadeUp 0.6s ease 0.4s both;
-    }
-
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(20px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-
-    /* VIDEO SECTION */
-    .video-section {
-      padding: 80px 24px;
-      max-width: 900px;
-      margin: 0 auto;
-    }
-
-    .video-wrapper {
-      position: relative;
-      padding-bottom: 56.25%;
-      height: 0;
-      border-radius: 16px;
-      overflow: hidden;
-      border: 1px solid var(--border);
-      box-shadow: 0 0 80px rgba(0,232,122,0.06);
-    }
-
-    .video-wrapper iframe {
-      position: absolute;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      border: 0;
-    }
-
-    /* SECTION LABEL */
-    .section-label {
-      font-size: 0.75rem;
-      font-weight: 600;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 12px;
-    }
-
-    /* FEATURES */
-    .features-section {
-      padding: 100px 24px;
-      max-width: 1100px;
-      margin: 0 auto;
-    }
-
-    .section-header {
-      text-align: center;
-      margin-bottom: 64px;
-    }
-
-    .section-header h2 {
-      font-family: 'Syne', sans-serif;
-      font-weight: 700;
-      font-size: clamp(1.8rem, 4vw, 2.8rem);
-      letter-spacing: -0.02em;
-      margin-bottom: 12px;
-    }
-
-    .section-header p {
-      color: var(--muted);
-      max-width: 480px;
-      margin: 0 auto;
-    }
-
-    .features-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 1px;
-      background: var(--border);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      overflow: hidden;
-    }
-
-    .feature-card {
-      background: var(--card);
-      padding: 32px;
-      transition: background 0.2s;
-    }
-
-    .feature-card:hover { background: var(--bg3); }
-
-    .feature-icon {
-      width: 44px; height: 44px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: rgba(0,232,122,0.08);
-      border-radius: 10px;
-      margin-bottom: 16px;
-      font-size: 1.2rem;
-    }
-
-    .feature-card h3 {
-      font-family: 'Syne', sans-serif;
-      font-weight: 600;
-      font-size: 1rem;
-      margin-bottom: 8px;
-      letter-spacing: -0.01em;
-    }
-
-    .feature-card p {
-      font-size: 0.875rem;
-      color: var(--muted);
-      line-height: 1.6;
-    }
-
-    /* HOW IT WORKS */
-    .steps-section {
-      padding: 100px 24px;
-      max-width: 800px;
-      margin: 0 auto;
-    }
-
-    .steps {
-      display: flex;
-      flex-direction: column;
-      gap: 0;
-      margin-top: 48px;
-    }
-
-    .step {
-      display: flex;
-      gap: 24px;
-      position: relative;
-      padding-bottom: 40px;
-    }
-
-    .step:last-child { padding-bottom: 0; }
-
-    .step-line {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-
-    .step-num {
-      width: 36px; height: 36px;
-      background: rgba(0,232,122,0.1);
-      border: 1px solid rgba(0,232,122,0.3);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: 'Syne', sans-serif;
-      font-weight: 700;
-      font-size: 0.85rem;
-      color: var(--accent);
-      flex-shrink: 0;
-    }
-
-    .step-connector {
-      width: 1px;
-      flex: 1;
-      background: var(--border);
-      margin: 8px 0;
-    }
-
-    .step:last-child .step-connector { display: none; }
-
-    .step-content { padding-top: 6px; }
-    .step-content h3 {
-      font-family: 'Syne', sans-serif;
-      font-weight: 600;
-      font-size: 1rem;
-      margin-bottom: 6px;
-    }
-    .step-content p { font-size: 0.875rem; color: var(--muted); }
-
-    /* SPECS */
-    .specs-section {
-      padding: 100px 24px;
-      max-width: 900px;
-      margin: 0 auto;
-    }
-
-    .specs-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 24px;
-      margin-top: 48px;
-    }
-
-    .spec-card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 28px 24px;
-      text-align: center;
-    }
-
-    .spec-card .spec-val {
-      font-family: 'Syne', sans-serif;
-      font-weight: 800;
-      font-size: 2rem;
-      color: var(--accent);
-      letter-spacing: -0.02em;
-      line-height: 1;
-      margin-bottom: 8px;
-    }
-
-    .spec-card .spec-label {
-      font-size: 0.85rem;
-      color: var(--muted);
-    }
-
-    /* CTA */
-    .cta-section {
-      padding: 120px 24px;
-      text-align: center;
-      position: relative;
-    }
-
-    .cta-glow {
-      position: absolute;
-      bottom: 0; left: 50%;
-      transform: translateX(-50%);
-      width: 500px; height: 300px;
-      background: radial-gradient(ellipse, rgba(0,232,122,0.1) 0%, transparent 70%);
-      pointer-events: none;
-    }
-
-    .cta-section h2 {
-      font-family: 'Syne', sans-serif;
-      font-weight: 800;
-      font-size: clamp(2rem, 5vw, 3.5rem);
-      letter-spacing: -0.03em;
-      margin-bottom: 20px;
-    }
-
-    .cta-section p {
-      color: var(--muted);
-      max-width: 400px;
-      margin: 0 auto 40px;
-    }
-
-    /* FOOTER */
-    footer {
-      border-top: 1px solid var(--border);
-      padding: 40px 48px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: gap;
-      gap: 16px;
-    }
-
-    footer .footer-logo {
-      font-family: 'Syne', sans-serif;
-      font-weight: 700;
-      font-size: 0.95rem;
-      color: var(--text);
-      text-decoration: none;
-    }
-
-    footer .footer-logo span { color: var(--accent); }
-
-    footer p {
-      font-size: 0.8rem;
-      color: var(--muted);
-    }
-
-    footer .footer-links {
-      display: flex;
-      gap: 24px;
-    }
-
-    footer .footer-links a {
-      font-size: 0.8rem;
-      color: var(--muted);
-      text-decoration: none;
-      transition: color 0.2s;
-    }
-
-    footer .footer-links a:hover { color: var(--text); }
-
-    /* DIVIDER */
-    .divider {
-      height: 1px;
-      background: var(--border);
-      max-width: 1100px;
-      margin: 0 auto;
-    }
-
-    /* RESPONSIVE */
-    @media (max-width: 640px) {
-      nav { padding: 0 20px; }
-      .nav-links { display: none; }
-      footer { flex-direction: column; text-align: center; padding: 32px 24px; }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>SaveGuard Pro — Auto-Save Plugin for Adobe Photoshop</title>
+
+<meta name="description" content="SaveGuard Pro is a smart auto-save and backup plugin for Adobe Photoshop. Never lose your work again. Available on Adobe Exchange.">
+<meta name="keywords" content="Photoshop auto-save plugin, Photoshop backup plugin, Adobe Photoshop plugin, autosave Photoshop, SaveGuard Pro">
+
+<meta property="og:title" content="SaveGuard Pro — Auto-Save Plugin for Adobe Photoshop">
+<meta property="og:description" content="Smart auto-save and backup plugin for Adobe Photoshop. Never lose your work again.">
+<meta property="og:url" content="https://pewi21.github.io/SaveGuard-Pro/">
+<meta property="og:type" content="website">
+
+<link rel="canonical" href="https://pewi21.github.io/SaveGuard-Pro/">
+
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+
+<!-- SEO STRUCTURED DATA -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "SaveGuard Pro",
+  "applicationCategory": "DesignApplication",
+  "operatingSystem": "Windows, macOS",
+  "description": "Smart auto-save and backup plugin for Adobe Photoshop with intelligent activity detection."
+}
+</script>
+
+<style>
+:root {
+  --bg:#0a0a0c;
+  --bg2:#111116;
+  --bg3:#18181f;
+  --border:rgba(255,255,255,0.07);
+  --accent:#00e87a;
+  --accent2:#00b35d;
+  --text:#e8e8f0;
+  --muted:#7a7a8c;
+  --card:#13131a;
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:'DM Sans',sans-serif;
+  line-height:1.65;
+}
+
+/* HERO */
+.hero{
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  padding:120px 24px;
+}
+
+.hero h1{
+  font-family:'Syne',sans-serif;
+  font-size:clamp(2.8rem,7vw,5.5rem);
+  line-height:1.05;
+}
+
+.hero h1 em{color:var(--accent);font-style:normal}
+
+.hero p{
+  max-width:600px;
+  color:var(--muted);
+  margin-top:20px;
+}
+
+/* BUTTONS */
+.btn{
+  display:inline-block;
+  margin-top:30px;
+  padding:14px 26px;
+  border-radius:10px;
+  text-decoration:none;
+  font-weight:600;
+}
+
+.btn-primary{
+  background:var(--accent);
+  color:#000;
+}
+
+.btn-secondary{
+  background:transparent;
+  border:1px solid var(--border);
+  color:var(--text);
+}
+
+/* SECTIONS */
+.section{
+  padding:80px 24px;
+  max-width:1000px;
+  margin:auto;
+}
+
+h2{
+  font-family:'Syne',sans-serif;
+  margin-bottom:20px;
+}
+
+.feature{
+  background:var(--card);
+  padding:20px;
+  border-radius:10px;
+  margin-top:10px;
+  border:1px solid var(--border);
+}
+
+/* FOOTER */
+footer{
+  text-align:center;
+  padding:40px;
+  color:var(--muted);
+  border-top:1px solid var(--border);
+}
+</style>
 </head>
+
 <body>
 
-  <!-- NAV -->
-  <nav>
-    <a href="#" class="nav-logo">Save<span>Guard</span> Pro</a>
-    <ul class="nav-links">
-      <li><a href="#features">Features</a></li>
-      <li><a href="#how-it-works">How it works</a></li>
-      <li><a href="#demo">Demo</a></li>
-      <li><a href="https://github.com/pewi21/SaveGuard-Pro" target="_blank">GitHub</a></li>
-      <li><a href="https://exchange.adobe.com/" target="_blank" class="nav-cta">Get Plugin</a></li>
-    </ul>
-  </nav>
+<!-- HERO -->
+<section class="hero">
+  <h1>SaveGuard <em>Pro</em></h1>
 
-  <!-- HERO -->
-  <section class="hero">
-    <div class="hero-glow"></div>
-    <div class="badge">30-day free trial · Adobe Exchange</div>
-    <h1>Never lose your<br /><em>Photoshop work</em><br />again.</h1>
-    <p>SaveGuard Pro automatically saves and backs up your Photoshop documents based on your settings and intelligent activity detection.</p>
-    <div class="hero-actions">
-      <a href="https://exchange.adobe.com/" target="_blank" class="btn-primary">
-        ↓ Get on Adobe Exchange
-      </a>
-      <a href="#demo" class="btn-ghost">
-        ▶ Watch Demo
-      </a>
-    </div>
-    <p class="trial-note">Free 30-day trial · Windows &amp; macOS · Photoshop 23.3+</p>
-  </section>
+  <p>
+    Smart auto-save and backup plugin for Adobe Photoshop.
+    Protect your work with automatic saving, backups and intelligent activity detection.
+  </p>
 
-  <!-- VIDEO -->
-  <section class="video-section" id="demo">
-    <div class="video-wrapper">
-      <iframe
-        src="https://www.youtube.com/embed/FgGDWKA0aYg"
-        title="SaveGuard Pro – Demo"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        allowfullscreen>
-      </iframe>
-    </div>
-  </section>
+  <p>
+    SaveGuard Pro is a Photoshop UXP plugin that provides automatic autosave and backup functionality for PSD and PSB files.
+    It helps prevent data loss caused by crashes, freezes or unexpected shutdowns.
+  </p>
 
-  <div class="divider"></div>
+  <a class="btn btn-primary" href="https://exchange.adobe.com/">Get on Adobe Exchange</a>
+  <a class="btn btn-secondary" href="https://github.com/pewi21/SaveGuard-Pro">View on GitHub</a>
+</section>
 
-  <!-- FEATURES -->
-  <section class="features-section" id="features">
-    <div class="section-header">
-      <p class="section-label">Features</p>
-      <h2>Everything you need to<br />protect your work</h2>
-      <p>A complete safety net for your creative workflow, with intelligent automation that stays out of your way.</p>
-    </div>
+<!-- FEATURES -->
+<section class="section">
+  <h2>Features</h2>
 
-    <div class="features-grid">
-      <div class="feature-card">
-        <div class="feature-icon">⚡</div>
-        <h3>AutoSave</h3>
-        <p>Automatically saves your document whenever changes are detected. Set the check interval and forget about manual Ctrl+S.</p>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">🧠</div>
-        <h3>Smart Delay</h3>
-        <p>Dynamically adjusts the save interval based on actual save duration, keeping Photoshop responsive on heavy files.</p>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">🗄️</div>
-        <h3>AutoBackup</h3>
-        <p>Creates timestamped backup copies at a separate interval. Never lose a version again, even after destructive edits.</p>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">🎯</div>
-        <h3>Cohesion Delay</h3>
-        <p>Waits for a pause in your editing activity before triggering a save, so saves never interrupt your creative flow.</p>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">📁</div>
-        <h3>Multiple Formats</h3>
-        <p>Save and back up as PSD, PSB, PNG, or JPG with per-format settings including JPG quality and PNG interlacing.</p>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">🔒</div>
-        <h3>Crash-safe Storage</h3>
-        <p>Settings written atomically with .tmp/.bak recovery. Your configuration is safe even if Photoshop crashes mid-save.</p>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">📄</div>
-        <h3>Per-document Settings</h3>
-        <p>Each open document has its own independent configuration. Different workflows for different files, simultaneously.</p>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">🚫</div>
-        <h3>Ignored Operations</h3>
-        <p>Define lists of Photoshop history states (like Lasso or Move Selection) that don't trigger a save. No junk backups.</p>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">🌍</div>
-        <h3>11 Languages</h3>
-        <p>Available in EN, PL, DE, FR, ES, IT, PT, RU, ZH, JA, KO. The whole team can use it comfortably.</p>
-      </div>
-    </div>
-  </section>
+  <div class="feature">AutoSave — automatic saving based on detected changes</div>
+  <div class="feature">AutoBackup — timestamped backup copies</div>
+  <div class="feature">Smart Delay — adaptive performance protection</div>
+  <div class="feature">Cohesion Delay — waits for editing pause</div>
+  <div class="feature">Multi-format support (PSD, PSB, PNG, JPG)</div>
+  <div class="feature">Crash-safe storage system</div>
+  <div class="feature">Per-document settings</div>
+</section>
 
-  <div class="divider"></div>
+<!-- WHY -->
+<section class="section">
+  <h2>Why SaveGuard Pro?</h2>
+  <p style="color:var(--muted)">
+    Photoshop does not guarantee safe recovery in all crash scenarios.
+    SaveGuard Pro continuously protects your progress in the background without interrupting your workflow.
+  </p>
+</section>
 
-  <!-- STATS -->
-  <section class="specs-section">
-    <div class="section-header">
-      <p class="section-label">By the numbers</p>
-      <h2>Built for serious work</h2>
-    </div>
-    <div class="specs-grid">
-      <div class="spec-card">
-        <div class="spec-val">11</div>
-        <div class="spec-label">Languages supported</div>
-      </div>
-      <div class="spec-card">
-        <div class="spec-val">2s</div>
-        <div class="spec-label">Minimum check interval</div>
-      </div>
-      <div class="spec-card">
-        <div class="spec-val">3×</div>
-        <div class="spec-label">Auto retry on failed saves</div>
-      </div>
-      <div class="spec-card">
-        <div class="spec-val">30</div>
-        <div class="spec-label">Days free trial</div>
-      </div>
-    </div>
-  </section>
-
-  <div class="divider"></div>
-
-  <!-- HOW IT WORKS -->
-  <section class="steps-section" id="how-it-works">
-    <div class="section-header">
-      <p class="section-label">Installation</p>
-      <h2>Up and running<br />in under 2 minutes</h2>
-    </div>
-    <div class="steps">
-      <div class="step">
-        <div class="step-line">
-          <div class="step-num">1</div>
-          <div class="step-connector"></div>
-        </div>
-        <div class="step-content">
-          <h3>Open Adobe Photoshop</h3>
-          <p>Make sure you have Photoshop 23.3.0 or later installed on Windows or macOS.</p>
-        </div>
-      </div>
-      <div class="step">
-        <div class="step-line">
-          <div class="step-num">2</div>
-          <div class="step-connector"></div>
-        </div>
-        <div class="step-content">
-          <h3>Go to Plugins → Browse Plugins</h3>
-          <p>Or visit Adobe Exchange directly in your browser and search for SaveGuard Pro.</p>
-        </div>
-      </div>
-      <div class="step">
-        <div class="step-line">
-          <div class="step-num">3</div>
-          <div class="step-connector"></div>
-        </div>
-        <div class="step-content">
-          <h3>Click Get and follow the prompts</h3>
-          <p>The plugin installs automatically. Your 30-day trial starts immediately, no credit card required.</p>
-        </div>
-      </div>
-      <div class="step">
-        <div class="step-line">
-          <div class="step-num">4</div>
-          <div class="step-connector"></div>
-        </div>
-        <div class="step-content">
-          <h3>Open via Plugins → SaveGuard Pro</h3>
-          <p>The panel opens inside Photoshop. Enable AutoSave and you're protected from this moment on.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- CTA -->
-  <section class="cta-section">
-    <div class="cta-glow"></div>
-    <p class="section-label">Get started today</p>
-    <h2>Your work is worth<br />protecting.</h2>
-    <p>Install SaveGuard Pro for free and never lose progress again.</p>
-    <div class="hero-actions">
-      <a href="https://exchange.adobe.com/" target="_blank" class="btn-primary">Get on Adobe Exchange</a>
-      <a href="https://github.com/pewi21/SaveGuard-Pro" target="_blank" class="btn-ghost">View on GitHub</a>
-    </div>
-  </section>
-
-  <!-- FOOTER -->
-  <footer>
-    <a href="#" class="footer-logo">Save<span>Guard</span> Pro</a>
-    <p>© 2026 Paweł Prygiel. All rights reserved.</p>
-    <div class="footer-links">
-      <a href="https://github.com/pewi21/SaveGuard-Pro/blob/main/PRIVACY.md" target="_blank">Privacy</a>
-      <a href="https://github.com/pewi21/SaveGuard-Pro/blob/main/TERMS.md" target="_blank">Terms</a>
-      <a href="https://github.com/pewi21/SaveGuard-Pro/blob/main/SUPPORT.md" target="_blank">Support</a>
-      <a href="https://github.com/pewi21/SaveGuard-Pro" target="_blank">GitHub</a>
-    </div>
-  </footer>
+<!-- FOOTER -->
+<footer>
+  © 2026 SaveGuard Pro — Photoshop Auto Backup Plugin
+</footer>
 
 </body>
 </html>
