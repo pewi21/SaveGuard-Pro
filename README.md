@@ -24,12 +24,14 @@ SaveGuard Pro protects your work by automatically saving and backing up your Pho
 - **Countdown timers** — live per-document countdowns showing time remaining until the next save and next backup; click to hide
 - **Save Now / Save Backup Now** — one-click buttons to force an immediate save or backup, bypassing all delays
 - **Browse Backup Files** — open a file picker in the backup folder and open selected files directly in Photoshop
-- **Multiple formats** — save and back up as PSD, PSB, PNG, or JPG; AutoSave also supports overwriting the original
+- **Multiple formats** — save and back up as PSD, PSB, PNG, JPG, or any custom format; AutoSave also supports overwriting the original
+- **Extended format support** — BMP, TIFF, AVIF, EPS, JPEG 2000, JXL, PCX, and other formats that require flattening can be auto-saved from multi-layer documents
 - **Format options** — per-format settings: JPG quality (1–12), PNG interlacing, PSD Maximize Compatibility
 - **Custom filenames** — optionally save to a custom filename instead of overwriting the original
 - **Custom save folder** — optionally direct AutoSave output to a folder other than the document's original location
 - **Ignored Operations** — define named lists of Photoshop history state names that suppress saves or backups
 - **Per-document settings** — each open document has its own independent configuration
+- **Mini/Full UI mode** — compact view with icons only, or full view with all settings visible
 - **Retry logic** — automatically retries failed saves up to 3 times, with per-error-code delays
 - **Crash-safe storage** — settings and ignored lists are written atomically with `.tmp`/`.bak` crash recovery
 - **Storage limits** — automatically removes oldest backups when a folder exceeds a set size or copy count
@@ -54,6 +56,23 @@ SaveGuard Pro protects your work by automatically saving and backing up your Pho
 3. Search for **SaveGuard Pro**
 4. Click **Get** and follow the prompts
 5. After installation, open the panel via **Plugins → SaveGuard Pro**
+
+---
+
+## UI Modes
+
+SaveGuard Pro features two UI modes to suit different workflows:
+
+### Full Mode
+- Displays all settings and options in a comprehensive view
+- Best for initial setup and detailed configuration
+- Default when the plugin is first opened
+
+### Mini Mode (Compact View)
+- Shows only essential controls with icon-only indicators
+- Reduces panel width for a more compact workspace
+- Click the **≪** button in the top-right corner to toggle between modes
+- Icons for: File format, Check interval, Wait-after-edit delay, and Backup actions
 
 ---
 
@@ -82,7 +101,7 @@ AutoSave is designed for workflows where you need changes in Photoshop to appear
 | Smart Delay | On | — | Automatically adjusts the interval so saves stay near 25% of the interval duration |
 | Wait after edit (s) | 2 s | 1 s – 300 s | How long to wait after the last edit before saving |
 | Save Now | — | — | Triggers an immediate save, bypassing all delays and debounce |
-| Format | Overwrite | Overwrite / PSD / PSB / PNG / JPG | Format used for auto-save |
+| Format | Overwrite | Overwrite / PSD / PSB / PNG / JPG / Other | Format used for auto-save |
 | JPG Quality | 10 | 1 – 12 | JPEG compression quality (visible when JPG is selected) |
 | PNG Interlaced | Off | — | Enables interlaced PNG encoding (visible when PNG is selected) |
 | Max. Compatibility | On | — | Enables PSD Maximize Compatibility (visible when PSD is selected) |
@@ -192,22 +211,28 @@ You can define named lists of Photoshop history state names that SaveGuard shoul
 ## Supported File Formats
 
 ### Full overwrite support
-PSD, PSDT, PDD, PSB, TIF/TIFF, PDF/PDP
+PSD, PSDT, PDD, PSB, TIF/TIFF, PDF/PDP, PNG, JPG/JPEG/JPE
 
 These formats support direct (in-place) saving regardless of layer count.
 
-### Overwrite support — single-layer documents only
-PNG, JPG/JPEG/JPE
+### Flatten-Copy Support (Auto-flatten from multi-layer documents)
+**New in v1.0.3** — These formats do not support multiple layers, but SaveGuard can now auto-flatten and export them from multi-layer documents without modifying the original:
 
-When Format is set to **Overwrite** and the document has exactly one layer, SaveGuard saves in place. When the document has multiple layers, SaveGuard automatically switches to Save As (with flattening) to the same folder — the format setting does not need to change.
+BMP/RLE/DIB, AVIF, TARGA (TGA/VDS/ICB/VST), EPS, JPEG 2000 (JPF/JPX/JP2/J2C/J2K/JPC), JPS, JXL, SCT, PCX, PXR, PBM/PGM/PPM/PNM/PFM/PAM, DICOM (DCM/DC3/DIC), RAW, DDS, KTX/KTX2, MPO, GIF
+
+These formats use SaveGuard's intelligent flatten-copy mechanism: Photoshop flattens the document internally during export, leaving your original layers untouched. The first flatten export for a document may prompt for confirmation of the save location.
+
+### Single-layer documents only
+GIF (in Indexed Color mode)
+
+### Custom Formats
+Use the **Other** option to save in any format supported by Photoshop that is not in the list above. When "Other" is selected, click **Edit 'Other' format** to choose the desired file extension.
 
 ### Formats that must be flattened manually before saving
-BMP, RLE, DIB, TGA, VDA/ICB/VST, EPS, IFF/TDI, AVIF, JXL, PCX, PXR, JP2/JPX/JPC/J2K, JPS, SCT, PBM/PGM/PPM/PNM/PFM/PAM
-
-These formats do not support layers. SaveGuard will warn you and stop if the document has more than one layer. Flatten the document manually in Photoshop first, then re-enable AutoSave.
+No automatic support — these require the document to already be flat (single layer). If you attempt to auto-save to one of these formats and your document has multiple layers, SaveGuard will warn you and stop.
 
 ### Formats that cannot be auto-saved
-WEBP, RAW, DCM/DC3/DIC, DDS, KTX/KTX2, MPO
+WEBP, KTX/KTX2 (overwrite)
 
 These formats are blocked due to Photoshop API limitations — saving them would open an interactive dialog that cannot be automated.
 
