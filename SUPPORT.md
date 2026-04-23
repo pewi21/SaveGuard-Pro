@@ -2,23 +2,42 @@
 
 ## Table of Contents
 
-1. [The plugin panel is not showing](#the-plugin-panel-is-not-showing)
-2. [AutoSave is not saving](#autosave-is-not-saving)
-3. ["Save Now" button does nothing](#save-now-button-does-nothing)
-4. [AutoSave does not save immediately after switching documents](#autosave-does-not-save-immediately-after-switching-documents)
-5. [AutoSave stopped with a critical error](#autosave-stopped-with-a-critical-error)
-6. [AutoSave is slowing down Photoshop](#autosave-is-slowing-down-photoshop)
-7. [AutoSave shows an interval load warning](#autosave-shows-an-interval-load-warning)
-8. [AutoSave asks me to select a folder](#autosave-asks-me-to-select-a-folder)
-9. [AutoBackup is not creating backups](#autobackup-is-not-creating-backups)
-10. [Backup folder says "unavailable"](#backup-folder-says-unavailable)
-11. [File was saved in the wrong format](#file-was-saved-in-the-wrong-format)
-12. [My document has too many layers error](#my-document-has-too-many-layers-error)
-13. [PSD file exceeds 2 GB](#psd-file-exceeds-2-gb)
-14. [Ignored Operations list not found](#ignored-operations-list-not-found)
-15. [Settings are not remembered between sessions](#settings-are-not-remembered-between-sessions)
-16. [Error messages reference](#error-messages-reference)
-17. [Contact support](#contact-support)
+1. [UI Modes (Mini/Full)](#ui-modes-minifull)
+2. [The plugin panel is not showing](#the-plugin-panel-is-not-showing)
+3. [AutoSave is not saving](#autosave-is-not-saving)
+4. ["Save Now" button does nothing](#save-now-button-does-nothing)
+5. [AutoSave does not save immediately after switching documents](#autosave-does-not-save-immediately-after-switching-documents)
+6. [AutoSave stopped with a critical error](#autosave-stopped-with-a-critical-error)
+7. [AutoSave is slowing down Photoshop](#autosave-is-slowing-down-photoshop)
+8. [AutoSave shows an interval load warning](#autosave-shows-an-interval-load-warning)
+9. [AutoSave asks me to select a folder](#autosave-asks-me-to-select-a-folder)
+10. [Using "Other" format](#using-other-format)
+11. [Auto-flatten and multi-layer formats](#auto-flatten-and-multi-layer-formats)
+12. [AutoBackup is not creating backups](#autobackup-is-not-creating-backups)
+13. [Backup folder says "unavailable"](#backup-folder-says-unavailable)
+14. [File was saved in the wrong format](#file-was-saved-in-the-wrong-format)
+15. [My document has too many layers error](#my-document-has-too-many-layers-error)
+16. [PSD file exceeds 2 GB](#psd-file-exceeds-2-gb)
+17. [Ignored Operations list not found](#ignored-operations-list-not-found)
+18. [Settings are not remembered between sessions](#settings-are-not-remembered-between-sessions)
+19. [Error messages reference](#error-messages-reference)
+20. [Contact support](#contact-support)
+
+---
+
+## UI Modes (Mini/Full)
+
+SaveGuard Pro has two UI modes:
+
+**Full Mode (default):** Shows all settings and controls
+**Mini Mode (compact):** Shows only icons and essential controls, reducing panel width
+
+### How to switch modes
+1. Click the **≪** (collapse) button in the top-right corner of the AutoSave section
+2. The panel switches to mini mode — only essential controls and icons are visible
+3. Click **≫** (expand) to return to full mode
+
+
 
 ---
 
@@ -162,6 +181,53 @@ This happens in two situations:
 
 ---
 
+## Using "Other" format
+
+The **Other** format option allows you to save in any file format supported by Photoshop beyond the standard options (PSD, PSB, PNG, JPG).
+
+### How to use "Other" format
+
+1. Open AutoSave settings
+2. In the **Format** dropdown, select **Other**
+3. Click **Edit 'Other' format**
+4. A dialog opens — choose the file extension you want to save as (e.g., BMP, AVIF, EPS, TIFF, etc.)
+5. If needed, select the destination folder
+6. The format is now saved and will be used for all subsequent AutoSaves
+
+### Flatten-copy formats
+When you select a format from the flatten-copy list (BMP, AVIF, EPS, JPEG 2000, JXL, etc.), SaveGuard automatically handles multi-layer documents by flattening during export — your original layers are never modified. The first flatten export may show a confirmation dialog.
+
+### Unsupported "Other" formats
+Some formats cannot be auto-saved (e.g., WEBP). If you select an unsupported format, AutoSave will show an error and stop.
+
+---
+
+## Auto-flatten and multi-layer formats
+
+**New in v1.0.3** — SaveGuard can now auto-save multi-layer documents in formats that normally don't support layers.
+
+### How it works
+
+For formats like BMP, AVIF, TARGA, JPEG 2000, EPS, JXL, and others, SaveGuard uses Photoshop's internal flattening during export:
+
+1. **Your original document is never modified** — layers remain intact
+2. **The exported file is flat** — a single-layer copy is written to disk
+3. **Automatic on subsequent saves** — after the first export, saves proceed without further dialogs (unless the folder changes)
+
+### First export confirmation
+
+The first time you enable AutoSave for a flatten-copy format, SaveGuard may ask you to confirm the save location. This ensures the flattened export goes to the correct folder. Once confirmed, all subsequent exports to that format happen automatically.
+
+### Supported flatten-copy formats
+
+- **Image formats:** BMP, RLE, DIB, AVIF, TARGA (TGA/VDS/ICB/VST), JXL, RAW, DDS, KTX/KTX2, MPO
+- **Vector/Print:** EPS, PostScript (SCT)
+- **Specialty formats:** PCX, PXR, PBM, PGM, PPM, PNM, PFM, PAM, DICOM (DCM/DC3/DIC)
+- **JPEG 2000 family:** JP2, JPF, JPX, J2C, J2K, JPC, JPS
+- **Indexed:** GIF
+
+---
+
 ## AutoBackup is not creating backups
 
 ### No backup folder is set
@@ -201,13 +267,12 @@ This means the previously selected backup folder no longer exists or is not acce
 
 If AutoSave format is set to **Overwrite**, SaveGuard saves in the document's original format. If you want a specific format, change it in settings.
 
-**Note:** Some formats are not compatible with auto-save:
-- **WEBP, RAW, DDS, DCM/DC3/DIC, KTX/KTX2, MPO** cannot be saved automatically — Photoshop would open an interactive dialog for these formats
-- **BMP, TGA, EPS, AVIF, JXL, PCX, and similar formats** do not support layers — SaveGuard will warn you and stop if the document has more than one layer; flatten the document manually first
-- **Multi-layer PNG or JPG documents** with Format set to **Overwrite** are handled automatically via Save As (with flattening) to the same folder — no format change is needed
-- **GIF files** with multiple layers cannot be overwritten unless the document is in Indexed Color mode — SaveGuard will warn you and stop
+**Note:** Format compatibility has been improved in v1.0.3:
+- **BMP, AVIF, TARGA, EPS, JPEG 2000, JXL, RAW, DDS, KTX/KTX2, MPO, GIF, and other flatten-copy formats** now support multi-layer documents — SaveGuard auto-flattens during export without modifying your original layers
+- **WEBP** still cannot be saved automatically — Photoshop would open an interactive dialog for this format
+- **Note:** RAW, DDS, KTX/KTX2, MPO can only be saved via flatten-copy, not as Overwrite format; they can be selected via the **Other** format option
 
-**Fix:** Change the AutoSave format to **PSD** or **PNG** in settings.
+**Fix:** Change the AutoSave format to **PSD**, **PNG**, or use **Other** to select a format that supports your document's layer count.
 
 ---
 
@@ -215,9 +280,16 @@ If AutoSave format is set to **Overwrite**, SaveGuard saves in the document's or
 
 **Error:** `[format] files can only have 1 layer. This document has X layers.`
 
-This happens when AutoSave format is set to a format that does not support multiple layers (e.g. BMP, TGA, EPS).
+**New in v1.0.3:** Many formats that previously required single-layer documents now support multi-layer AutoSave through automatic flattening. If you see this error, it means you're trying to save to a format that still requires manual flattening (such as GIF in RGB mode, or a blocked format).
 
-**Fix:** Change the AutoSave format to **PSD**, **PSB**, or **PNG** in settings.
+**Formats that now support multi-layer documents:**
+- BMP, RLE, DIB, AVIF, TARGA, EPS, JPEG 2000, JXL, PCX, PBM/PGM/PPM, and others
+
+
+**Fix:** 
+1. First, check if the format you want is in the flatten-copy list above — if so, select it and AutoSave will handle multi-layer documents automatically.
+2. If not, flatten your document manually in Photoshop (**Image → Flatten Image**), then re-enable AutoSave.
+3. Or change the AutoSave format to **PSD** or **PSB** which support unlimited layers.
 
 ---
 
