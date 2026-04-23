@@ -97,9 +97,9 @@ AutoSave is designed for workflows where you need changes in Photoshop to appear
 
 | Setting | Default | Range | Description |
 |---|---|---|---|
-| Check every (s) | 2 s | 2 s – 3600 s | How often SaveGuard checks for unsaved changes |
+| Check every (s) | 2 s | 2 s – 999 s | How often SaveGuard checks for unsaved changes |
 | Smart Delay | On | — | Automatically adjusts the interval so saves stay near 25% of the interval duration |
-| Wait after edit (s) | 2 s | 1 s – 300 s | How long to wait after the last edit before saving |
+| Wait after edit (s) | 2 s | 1 s – 99 s | How long to wait after the last edit before saving |
 | Save Now | — | — | Triggers an immediate save, bypassing all delays and debounce |
 | Format | Overwrite | Overwrite / PSD / PSB / PNG / JPG / Other | Format used for auto-save |
 | JPG Quality | 10 | 1 – 12 | JPEG compression quality (visible when JPG is selected) |
@@ -174,7 +174,7 @@ This prevents lag spikes when rapidly cycling through open documents.
 | Setting | Default | Range | Description |
 |---|---|---|---|
 | Save every (min) | 15 min | 5 min – 120 min | How often a new backup copy is created |
-| Wait after edit (s) | 2 s | 1 s – 300 s | Waits for editing to pause before creating a backup. If editing is continuous for 60 seconds without any pause, the backup is triggered immediately regardless of this setting |
+| Wait after edit (s) | 2 s | 1 s – 99 s | Waits for editing to pause before creating a backup. If editing is continuous for 60 seconds without any pause, the backup is triggered immediately regardless of this setting |
 | Save Backup Now | — | — | Triggers an immediate backup, bypassing all delays and debounce |
 | Browse Backup Files | — | — | Opens a file picker in the backup folder; selected files open directly in Photoshop |
 | Format | PSD | PSD / PSB / PNG / JPG | Format used for backup files |
